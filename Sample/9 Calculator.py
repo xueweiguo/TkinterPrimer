@@ -56,7 +56,7 @@ def back():
         if len(lower) > 0:
             lower_display.config(text=lower[:len(lower)-1])
 
-# change state button.
+# back button.
 Button(root,text="<-", width=2, command=back).grid(row=2, column=2, sticky=E+W)
 
 def add_op(op):
