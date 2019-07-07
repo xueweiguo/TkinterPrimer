@@ -4,14 +4,6 @@ from tkinter.font import *
 # create the main window
 root = Tk()
 
-# create font
-fonts = [
-    Font(family='SimHei', size=20, weight=BOLD),
-    Font(family='SimHei', size=16),
-    Font(family='SimSun', size=12, weight=BOLD),
-    Font(family='SimSun', size=12)
-    ]
-
 # change state function.
 def change_state():
     state = text.cget('state')
@@ -24,7 +16,8 @@ def change_state():
 
 
 # change state button.
-sb = Button(root,text="Enable", width=8, command=change_state).grid(row=0, column=0, sticky=E+W)
+eb = Button(root,text="Enable", width=8, command=change_state)
+eb.grid(row=0, column=0, sticky=E+W)
 
 # delete selection.
 def delete_selection():
@@ -40,11 +33,21 @@ def delete_selection():
 db = Button(root,text="Delete", width = 8, command=delete_selection)
 db.grid(row=0, column=1, sticky=E+W)
 
+# undo button
 undo = Button(root, text='Undo', width = 8, command=lambda:text.edit_undo())
 undo.grid(row=0, column = 2, sticky=E+W)
 
+#redo button
 redo = Button(root, text='Redo', width = 8, command=lambda:text.edit_redo())
 redo.grid(row=0, column = 3, sticky=E+W)
+
+# create fonts
+fonts = [
+    Font(family='SimHei', size=20, weight=BOLD),
+    Font(family='SimHei', size=16),
+    Font(family='SimSun', size=12, weight=BOLD),
+    Font(family='SimSun', size=12)
+    ]
 
 # delete selection.
 def format(index):
@@ -55,7 +58,7 @@ def format(index):
         for name in text.tag_names():
             text.tag_remove(name, sel_from, sel_to)
         text.tag_add(tag_name, sel_from, sel_to)
-        #
+        # set format at first time.
         range_count = len(text.tag_ranges(tag_name))
         if range_count == 2:
             text.tag_config(tag_name, font=fonts[index])
@@ -70,7 +73,7 @@ for i in range(0, 4):
                 command=lambda v=i : format(v))
     fb.grid(row=1, column=i, sticky=E+W)
 
-# create a label to change state.
+# create text widget.
 text = Text(root,
             undo=True,
             background="#a0ffa0", foreground="#000000",
@@ -83,7 +86,7 @@ def tags():
         print(name, ":", text.tag_ranges(name))
 
 # delete selection button.
-# Button(root,text="Tags", command=tags).grid(row=0, column=6, sticky=E+W)
+Button(root,text="Tags", command=tags).grid(row=0, column=6, sticky=E+W)
 
 # run main loop.
 root.mainloop()
