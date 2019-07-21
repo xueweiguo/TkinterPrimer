@@ -21,19 +21,19 @@ for i in range(0,20):
 
 # bind event
 lb.bind('<<ListboxSelect>>',
-        lambda:label.config(text=str(lb.curselection())))
+        lambda e: label.config(text=str(lb.curselection())))
 lb.grid(row=0, column=0, columnspan=3, sticky=W+E)
 
 # create a Spinbox to change state.
 st_spin = Spinbox(root,
-                  values=('disabled', 'normal'),
+                  values=('normal', 'disabled'),
                   state='readonly',
                   command=lambda:lb.config(state=st_spin.get()))
 st_spin.grid(row=1, column=0, columnspan=1, sticky=W)
 
 # create a Spinbox to change activestyle.
 as_spin = Spinbox(root,
-                  values=('underline', 'dotbox', 'none'),
+                  values=('dotbox', 'underline', 'none'),
                   state='readonly',
                   command=lambda:lb.config(activestyle=as_spin.get()))
 as_spin.grid(row=1, column=1, columnspan=1, sticky=W)
