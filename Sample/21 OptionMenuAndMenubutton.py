@@ -7,14 +7,6 @@ root = Tk()
 text_enable = StringVar()
 text_enable.set('Enable ')
 
-# change state function.
-def enable_text():
-    text_enable.set('Enable')
-
-# change state function.
-def disable_text():
-    text_enable.set('Disable')
-
 enable_menu = OptionMenu(root, text_enable, 'Enable ', 'Disable')
 enable_menu.grid(row = 0, column = 0, sticky=E+W)
 
@@ -91,9 +83,9 @@ menu_button.grid(row=0, column=4, sticky=E+W)
 format_menu = Menu(menu_button, tearoff=0)
 menu_button.config(menu=format_menu)
 
-# delete selection button.
 for i in range(0, 4):
-    format_menu.add_command(label="Format" + str(i), command=lambda v=i : format(v))
+    format_menu.add_command(label="Format" + str(i),
+                            command=lambda v=i : format(v))
 
 # create text widget.
 text = Text(root,
