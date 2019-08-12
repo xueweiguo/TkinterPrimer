@@ -5,11 +5,6 @@ from enum import Enum
 # create the main window
 root = Tk()
 
-#color enum value
-class GoColor(Enum):
-    WHITE = 0
-    BLACK = 1
-
 # create font
 ftTimes = Font(family='Times', size=12)
 
@@ -33,6 +28,12 @@ for r in range(0, pan_size):
 for c in range(0, pan_size):
     canvas.create_line(space / 2 + c * space, space / 2, 
                        space / 2 + c * space, space * pan_size - space / 2)
+
+
+#color enum value
+class GoColor(Enum):
+    WHITE = 0
+    BLACK = 1
 
 # add go
 def set_go(row, col, color, number=0):
