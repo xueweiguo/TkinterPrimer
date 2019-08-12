@@ -5,9 +5,6 @@ from enum import Enum
 # create the main window
 root = Tk()
 
-# create font
-ftTimes = Font(family='Times', size=12)
-
 # config go pan
 space = 30
 pan_size = 13
@@ -34,6 +31,9 @@ for c in range(0, pan_size):
 class GoColor(Enum):
     WHITE = 0
     BLACK = 1
+
+# create font
+ftTimes = Font(family='Times', size=12)
 
 # add go
 def set_go(row, col, color, number=0):
