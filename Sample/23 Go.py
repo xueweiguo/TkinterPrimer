@@ -2,10 +2,6 @@ from tkinter import *
 from tkinter.font import *
 from enum import Enum
 
-#color enum value
-class GoColor(Enum):
-    WHITE = 0
-    BLACK = 1
 
 class GoBoard(Canvas):
     def __init__(self, master, size, span):
@@ -15,14 +11,14 @@ class GoBoard(Canvas):
         # create font
         self.font1 = Font(family='Times', size=12)
         self.__draw_board()
-        self.__draw_cursor()
-        self.step = 0
-
-    def clear(self):
+        self.__create_cursor()
         self.step = 0
 
     def add_go(self):
         row, col = self.get_cursor()
+        tag = self.__oval_tag(row, col)
+        if self.find_withtag(tag):
+            return
         r = 11
         if self.step % 2 == 0:
             go_color = 'black'
@@ -33,7 +29,7 @@ class GoBoard(Canvas):
                          fill=go_color,
                          tags=['go',
                                'go_oval',
-                               self.__oval_tag(row, col),
+                               tag,
                                'step' + str(self.step)])
         # move cursor to upmost
         self.tag_raise('cursor', 'go')
@@ -102,7 +98,7 @@ class GoBoard(Canvas):
     def __font_tag(self, row, col):
         return 'go_number{},{}'.format(row,col)
 
-    def __draw_cursor(self):
+    def __create_cursor(self):
         # add go shape
         side = 5
         self.create_rectangle(self.__cursor_rect(int(self.size / 2), int(self.size / 2)),
