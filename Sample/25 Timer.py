@@ -51,7 +51,6 @@ class DigitalClock:
 
 # create the main window
 root = Tk()
-
 # create canvas
 canvas = Canvas(root, height= 400, width= 400)
 canvas.grid(row=0, column=0)
@@ -59,3 +58,4 @@ clock = DigitalClock(canvas, 400, 400)
 timer = Timer(root, 1000, clock.update)
 timer.start()
 root.mainloop()
+timer.stop()
