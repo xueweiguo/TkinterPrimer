@@ -33,6 +33,7 @@ class Clock:
         self.width = width
         self.height = height
         self.digital = True
+        self.type = None
         # create font for date.
         ftDate = Font(family='Times', size=32)
         self.canvas.create_text(width / 2, height / 4,
@@ -82,13 +83,14 @@ class Clock:
                                     self.height / 2 + center_r,
                                     fill='white',
                                     tag='center')
+        self.type = type
         self.update()
 
     def update(self):
         now = time.localtime()
         time_str = time.strftime('%Y.%m.%d %a %p', now)
         self.canvas.itemconfigure('date', text=time_str)
-        if type=='Digital':
+        if self.type=='Digital':
             time_str = time.strftime('%I:%M:%S', now)
             self.canvas.itemconfigure('time', text=time_str)
         else:
