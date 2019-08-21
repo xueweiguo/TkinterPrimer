@@ -1,0 +1,15 @@
+*Label.background:#a0ffa0
+*upperDisplay.font:times 12 bold
+*lowerDisplay.font:times 24 bold
+*Button*font: Meiryo 12 bold
+*Button*foreground:#007700
+*ckey*foreground:#ff0000
+*cekey*foreground:#ff0000
+*back*foreground:#ff0000
+*devkey*foreground:#0000ff
+*mulkey*foreground:#0000ff
+*minukey*foreground:#0000ff
+*pluskey*foreground:#0000ff
+*equalkey*foreground:#000000
+
+
