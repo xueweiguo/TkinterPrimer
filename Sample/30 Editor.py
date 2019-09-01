@@ -23,7 +23,7 @@ edit_area = Frame(root)
 edit_area.grid(row=1, column=0)
 # create text widget.
 font = Font(family='Arial', size=15),
-text = Text(edit_area, font=font, height=80, wrap=NONE)
+text = Text(edit_area, font=font, wrap=NONE)
 text.config(width=int(text['width']* screen_w / text.winfo_reqwidth()),
             height=int(text['height']* screen_h / text.winfo_reqheight()))
 text.grid(row=0, column=0, sticky='nsew')
