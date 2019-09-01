@@ -7,6 +7,8 @@ import time
 
 root = Tk()
 root.title('Tkinter Treeview and PanedWindow Demo V1.0')
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
 
 screen_w = root.winfo_screenwidth()
 screen_h = root.winfo_screenheight()
@@ -26,9 +28,11 @@ paned_window = PanedWindow(root, orient=HORIZONTAL)
 paned_window.grid(row=0, column=0, sticky='eswn')
 
 tree_area = Frame(paned_window)
+tree_area.grid_rowconfigure(0, weight=1)
+tree_area.grid_columnconfigure(0, weight=1)
+paned_window.add(tree_area)
 
-# create text widget.
-font = Font(family='Arial', size=10)
+
 cur_path = os.path.abspath(os.path.dirname(__file__))
 pc_image = PhotoImage(file=cur_path + '\\images\\pc.png')
 drive_image = PhotoImage(file=cur_path + '\\images\\drive.png')
@@ -50,6 +54,10 @@ pc_node= tree_view.insert('', 'end',
                           text=os.environ.get('COMPUTERNAME'),
                           image=pc_image,
                           open=False)
+for c in string.ascii_uppercase:
+    disk = c + ':'
+    if os.path.isdir(disk):
+        drive_node = tree_view.insert(pc_node, 'end', text=disk, image=drive_image)
 
 def node_path(node):
     path = ''
@@ -63,7 +71,6 @@ def node_path(node):
         parent = tree_view.parent(parent)
     return path
 
-
 def insert_child_items(parent_node):
     path = node_path(parent_node)
     if os.path.isdir(path):
@@ -74,11 +81,6 @@ def insert_child_items(parent_node):
                     tree_view.insert(parent_node, 'end', text=item.name, image=folder_image)
         except Exception as e:
             print(e)
-
-for c in string.ascii_uppercase:
-    disk = c + ':'
-    if os.path.isdir(disk):
-        drive_node = tree_view.insert(pc_node, 'end', text=disk, image=drive_image)
 
 def open_node(event):
     focus = tree_view.focus()
@@ -96,14 +98,11 @@ def close_node(event):
 
 tree_view.bind('<<TreeviewClose>>', close_node)
 
-tree_area.grid_rowconfigure(0, weight=1)
-tree_area.grid_columnconfigure(0, weight=1)
-
-paned_window.add(tree_area)
-
 detail_area = Frame(paned_window)
-# create text widget.
-font1 = Font(family='Arial', size=15),
+detail_area.grid_rowconfigure(0, weight=1)
+detail_area.grid_columnconfigure(0, weight=1)
+paned_window.add(detail_area)
+
 list_view = Treeview(detail_area)
 list_view['columns'] = ('#1', '#2', "#3", '#4')
 list_view.column("#0", width=150, minwidth=150, stretch=YES)
@@ -129,10 +128,6 @@ list_view['xscrollcommand']=scroll_fx.set
 
 Sizegrip(detail_area).grid(row=1, column=1)
 
-detail_area.grid_rowconfigure(0, weight=1)
-detail_area.grid_columnconfigure(0, weight=1)
-paned_window.add(detail_area)
-
 def select_node(event):
     children = list_view.get_children('')
     for c in children:
@@ -157,9 +152,6 @@ def select_node(event):
             print(e)
 
 tree_view.bind('<<TreeviewSelect>>', select_node)
-
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(0, weight=1)
 
 print(paned_window.panes())
 root.mainloop()
