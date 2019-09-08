@@ -41,28 +41,38 @@ theme.trace_variable('w', theme_changed)
 paned_window = PanedWindow(root, orient=HORIZONTAL)
 paned_window.grid(row=0, column=0, sticky='eswn')
 
+#生成Frame容器以容纳TreeView,Scrollbar
 tree_area = Frame(paned_window)
+# 设定水平伸展
 tree_area.grid_rowconfigure(0, weight=1)
+# 设定垂直伸展
 tree_area.grid_columnconfigure(0, weight=1)
-paned_window.add(tree_area)
+# 生成TreeView
+tree_view = Treeview(tree_area, show='tree', selectmode='browse')
+# 设定TreeView布局位置
+tree_view.grid(row=0, column=0, sticky='nsew')
 
+# 生成垂直滚动条
+scroll_ty = Scrollbar(tree_area, orient=VERTICAL, command=tree_view.yview)
+# 设定滚动条布局位置
+scroll_ty.grid(row=0, column=1, sticky=N+S)
+# 关联滚动动作
+tree_view['yscrollcommand']=scroll_ty.set
+
+# 生成水平滚动条
+scroll_tx = Scrollbar(tree_area, orient=HORIZONTAL, command=tree_view.xview)
+# 设定滚动条布局位置
+scroll_tx.grid(row=1, column=0, sticky=E+W)
+# 关联滚动动作
+tree_view['xscrollcommand']=scroll_tx.set
+
+paned_window.add(tree_area)
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
 pc_image = PhotoImage(file=cur_path + '\\images\\pc.png')
 drive_image = PhotoImage(file=cur_path + '\\images\\drive.png')
 folder_image = PhotoImage(file=cur_path + '\\images\\folder.png')
 file_image = PhotoImage(file=cur_path + '\\images\\file.png')
-
-tree_view = Treeview(tree_area, show='tree', selectmode='browse')
-tree_view.grid(row=0, column=0, sticky='nsew')
-
-scroll_ty = Scrollbar(tree_area, orient=VERTICAL, command=tree_view.yview)
-scroll_ty.grid(row=0, column=1, sticky=N+S)
-tree_view['yscrollcommand']=scroll_ty.set
-
-scroll_tx = Scrollbar(tree_area, orient=HORIZONTAL, command=tree_view.xview)
-scroll_tx.grid(row=1, column=0, sticky=E+W)
-tree_view['xscrollcommand']=scroll_tx.set
 
 pc_node= tree_view.insert('', 'end',
                           text=os.environ.get('COMPUTERNAME'),
