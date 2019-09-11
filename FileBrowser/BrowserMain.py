@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 
-from scrollable import *
+from utilities import scrollable
 from DirView import *
 from FileList import *
 
