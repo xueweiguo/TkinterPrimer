@@ -35,3 +35,13 @@ def scrollable(master, w_type, **kwargs):
         Sizegrip(frame).grid(row=1, column=1)
     return frame,widget
 
+def center_window(w, ref):
+    w.update()
+    width = w.winfo_width()
+    height = w.winfo_height()
+    ref_width = ref.winfo_width()
+    ref_height = ref.winfo_height()
+    x = ref.winfo_x()
+    y = ref.winfo_y()
+    size = '%dx%d+%d+%d' % (width, height, x + (ref_width - width) / 2, y+(ref_height - height) / 2)
+    w.geometry(size)
