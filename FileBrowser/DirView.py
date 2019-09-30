@@ -39,6 +39,13 @@ class DirView(Treeview):
             parent = self.parent(parent)
         return path
 
+    def current_path(self):
+        current = self.focus()
+        if current:
+            return self.node_path(current)
+        else:
+            return None
+
     def insert_child_items(self, parent_node):
         path = self.node_path(parent_node)
         if os.path.isdir(path):

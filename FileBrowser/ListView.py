@@ -48,9 +48,11 @@ class ListView(Treeview):
         self.bind('<<TreeviewSelect>>', self.item_selected)
         self.bind('<Double-1>', self.item_double_clicked)  # 双击左键进入编辑
 
+    # 设定允许编辑的列
     def enable_edit(self, col, editable):
         self.editable[col] = editable
 
+    # 双击处理
     def item_double_clicked(self, event):
         column = self.identify_column(event.x)  # 列
         row = self.identify_row(event.y)  # 行
@@ -58,38 +60,30 @@ class ListView(Treeview):
         if editable:
             ItemEdit(self, row, column)
 
+    # 编辑结果确认处理
     def entry_confirmed(self, row, col, text):
         self.set_text(row, col, text)
 
+    # 行选中处理
     def item_selected(self, event):
         try:
             self.master.item_selected(event)
         except:
             pass
 
+    # 指定行列获取内容
     def get_text(self, row, col):
         if col == '#0':
             return self.item(row, 'text')
         else:
             return self.set(row, col)
 
+    # 指定行列修改内容
     def set_text(self, row, col, text):
         if col == '#0':
             self.item(row, text=text)
         else:
             self.set(row, col, text)
 
-    def sort_column(self, cols, reverse):
-        key_pairs = []
-        for iid in self.get_children(''):
-            key = ''
-            for c in cols:
-                key = key + self.set(iid, c) + '#'
-            key_pairs.append((key, iid))
 
-        key_pairs.sort(reverse=reverse)
-
-        # rearrange items in sorted positions
-        for index, (key, iid) in enumerate(key_pairs):
-            self.move(iid, '', index)
 

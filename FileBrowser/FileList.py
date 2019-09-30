@@ -25,7 +25,17 @@ class FileList(ListView):
         self.bind('<ButtonPress-3>', self.popup_menu)
 
     def entry_confirmed(self, row, col, text):
-        self.set_text(row, col, text)
+        prev = self.get_text(row, col)
+        if text != prev:
+            path = self.tree_view.current_path()
+            if path:
+                try:
+                    src = os.path.join(path, prev)
+                    des = os.path.join(path, text)
+                    os.rename(src, des)
+                    self.set_text(row, col, text)
+                except Exception as e:
+                    showerror('Error', str(e))
 
     def selected_files(self):
         try:

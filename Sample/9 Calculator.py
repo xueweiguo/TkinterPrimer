@@ -113,7 +113,6 @@ def calculate():
     upper = upper.replace('÷', '/')
     upper = upper.replace('×', '*')
     result = format(eval(upper), 'g')
-
     lower_display.config(text=result)
 
 

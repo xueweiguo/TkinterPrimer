@@ -83,18 +83,6 @@ for c in string.ascii_uppercase:
     if os.path.isdir(disk):
         drive_node = tree_view.insert(pc_node, 'end', text=disk, image=drive_image)
 
-def node_path(node):
-    path = ''
-    parent = node
-    while parent:
-        node_text = tree_view.item(parent, 'text')
-        if len(path) > 0:
-            path = os.path.join(node_text, path)
-        else:
-            path = node_text
-        parent = tree_view.parent(parent)
-    return path
-
 def insert_child_items(parent_node):
     path = node_path(parent_node)
     if os.path.isdir(path):
